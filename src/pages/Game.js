@@ -1,26 +1,17 @@
-// import md5 from 'crypto-js/md5';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
-import { updateToken } from '../redux/actions';
-import apiQuestionsFetch from '../services/apiFetch';
+import { getQuestions } from '../redux/actions';
 
 class Game extends Component {
   state={
-    questions: [],
     qIndex: 0,
   }
 
   componentDidMount() {
-    this.fetchQuestions();
-  }
-
-  fetchQuestions = async () => {
-    const { token, tokenUpdate } = this.props;
-    const { results, newToken } = await apiQuestionsFetch(token);
-    tokenUpdate(newToken);
-    this.setState({ questions: results });
+    const { token, questionsUpdate } = this.props;
+    questionsUpdate(token);
   }
 
   randomNumber = () => {
@@ -56,7 +47,8 @@ class Game extends Component {
   }
 
   render() {
-    const { questions, qIndex } = this.state;
+    const { qIndex } = this.state;
+    const { questions } = this.props;
     return (
       <>
         <Header />
@@ -89,15 +81,17 @@ class Game extends Component {
 
 const mapStateToProps = (state) => ({
   token: state.token,
+  questions: state.questions.questions,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  tokenUpdate: (token) => dispatch(updateToken(token)),
+  questionsUpdate: (token) => dispatch(getQuestions(token)),
 });
 
 Game.propTypes = {
   token: PropTypes.string,
-  tokenUpdate: PropTypes.func,
+  questionsUpdate: PropTypes.func,
+  questions: PropTypes.arrayOf(PropTypes.object),
 }.isRequired;
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);
