@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import getToken from '../services/fetchToken';
-import saveToken from '../redux/actions';
+import { saveToken } from '../redux/actions';
 
 class Login extends Component {
   state = {
@@ -25,6 +25,13 @@ class Login extends Component {
     const response = await getToken();
     dispatch(saveToken(response.token));
     history.push('/game');
+  }
+
+  handleConfigClick = async () => {
+    const {
+      history,
+    } = this.props;
+    history.push('/config');
   }
 
   validateForm = () => {
@@ -65,14 +72,21 @@ class Login extends Component {
         >
           Play
         </button>
+        <button
+          type="button"
+          data-testid="btn-settings"
+          onClick={ this.handleConfigClick }
+        >
+          Configurações
+        </button>
       </>
     );
   }
 }
 
 Login.propTypes = {
-  history: PropTypes.objectOf(PropTypes.any).isRequired,
-  dispatch: PropTypes.func.isRequired,
-};
+  history: PropTypes.objectOf(PropTypes.any),
+  dispatch: PropTypes.func,
+}.isRequired;
 
 export default connect()(Login);
