@@ -1,1 +1,1 @@
-// export const minhaAction = (value) => ({ type: USER_LOGIN, value });
+export const updateToken = (token) => ({ type: 'UPDATE_TOKEN', token });
