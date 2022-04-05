@@ -27,6 +27,13 @@ class Login extends Component {
     history.push('/game');
   }
 
+  handleConfigClick = async () => {
+    const {
+      history,
+    } = this.props;
+    history.push('/config');
+  }
+
   validateForm = () => {
     const { name, email } = this.state;
 
@@ -64,6 +71,13 @@ class Login extends Component {
           disabled={ isBtnDisabled }
         >
           Play
+        </button>
+        <button
+          type="button"
+          data-testid="btn-settings"
+          onClick={ this.handleConfigClick }
+        >
+          Configurações
         </button>
       </>
     );
