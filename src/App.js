@@ -13,6 +13,5 @@ export default function App() {
       <Route exact path="/config" component={ Config } />
       <Route exact path="/" component={ Login } />
     </Switch>
-    // </>
   );
 }
