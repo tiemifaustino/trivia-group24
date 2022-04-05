@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import getToken from '../services/fetchToken';
+import saveToken from '../redux/actions';
 
 class Login extends Component {
   state = {
@@ -13,8 +17,14 @@ class Login extends Component {
     }, this.validateForm);
   }
 
-  handleClick = () => {
-    console.log('cheguei aqui');
+  handleClick = async () => {
+    const {
+      history,
+      dispatch,
+    } = this.props;
+    const response = await getToken();
+    dispatch(saveToken(response.token));
+    history.push('/game');
   }
 
   validateForm = () => {
@@ -37,13 +47,15 @@ class Login extends Component {
           name="name"
           data-testid="input-player-name"
           onChange={ this.handleChange }
+          placeholder="Nome"
         />
         <input
-          type="text"
+          type="email"
           value={ email }
           name="email"
           data-testid="input-gravatar-email"
           onChange={ this.handleChange }
+          placeholder="E-mail"
         />
         <button
           type="button"
@@ -58,4 +70,9 @@ class Login extends Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
+  dispatch: PropTypes.func.isRequired,
+};
+
+export default connect()(Login);
