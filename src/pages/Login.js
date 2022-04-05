@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import getToken from '../services/fetchToken';
-import { saveToken } from '../redux/actions';
+import { getSaveToken, savePlayer } from '../redux/actions';
 
 class Login extends Component {
   state = {
@@ -17,13 +16,13 @@ class Login extends Component {
     }, this.validateForm);
   }
 
-  handleClick = async () => {
+  handleClick = () => {
     const {
       history,
       dispatch,
     } = this.props;
-    const response = await getToken();
-    dispatch(saveToken(response.token));
+    dispatch(savePlayer(this.state));
+    dispatch(getSaveToken());
     history.push('/game');
   }
 

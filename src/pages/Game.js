@@ -1,4 +1,3 @@
-
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -12,6 +11,7 @@ class Game extends Component {
 
   componentDidMount() {
     const { token, questionsUpdate } = this.props;
+    console.log('didmount', token);
     questionsUpdate(token);
   }
 
@@ -53,9 +53,8 @@ class Game extends Component {
     return (
       <>
         <Header />
-        {!questions.length
-          ? (<p>Loading</p>)
-          : (
+        {(questions.length > 0)
+          && (
             <>
               <div>
                 <p data-testid="question-category">{ questions[qIndex].category }</p>

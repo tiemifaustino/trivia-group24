@@ -6,6 +6,8 @@ const apiQuestionsFetch = async (token) => {
   const data = await response.json();
   const { response_code: responseCode, results } = data;
 
+  console.log('api token', token);
+
   if (responseCode === 0) return { results, newToken: token };
 
   const URL_TOKEN = 'https://opentdb.com/api_token.php?command=request';
