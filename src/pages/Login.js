@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import getToken from '../services/fetchToken';
-import saveToken from '../redux/actions';
+import { saveToken } from '../redux/actions';
 
 class Login extends Component {
   state = {
