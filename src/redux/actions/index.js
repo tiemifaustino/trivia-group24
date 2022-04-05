@@ -5,8 +5,11 @@ export const UPDATE_TOKEN = 'UPDATE_TOKEN';
 export const REQ_FAILURE = 'REQ_FAILURE';
 export const UPDATE_QUESTIONS = 'UPDATE_QUESTIONS';
 export const REQUIRE = 'REQUIRE';
+export const USER_TOKEN = 'USER_TOKEN';
 
 // Actions
+
+export const saveToken = (payload) => ({ type: USER_TOKEN, payload });
 
 export const updateToken = (token) => ({
   type: UPDATE_TOKEN,
