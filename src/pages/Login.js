@@ -22,8 +22,8 @@ class Login extends Component {
       history,
       dispatch,
     } = this.props;
-    const token = await getToken();
-    dispatch(saveToken(token.token));
+    const response = await getToken();
+    dispatch(saveToken(response.token));
     history.push('/game');
   }
 
