@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
-import nomeReducer1 from './reducer1';
-// import nomeReducer2 from './nomeReducer2';
+import player from './player';
+import token from './token';
 
 const rootReducer = combineReducers({
-  nomeReducer1,
-  // nomeReducer2,
+  player,
+  token,
 });
 
 export default rootReducer;
