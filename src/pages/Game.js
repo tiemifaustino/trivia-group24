@@ -11,6 +11,7 @@ class Game extends Component {
     timer: 30,
     isTimerOut: false,
     positions: {},
+    nextVisible: false,
   }
 
   correctAnswerClass = 'correct-answer';
@@ -27,6 +28,7 @@ class Game extends Component {
       this.setState({
         isTimerOut: true,
         timer: 0,
+        nextVisible: true,
       });
       clearInterval(this.periodAnswer);
     }
@@ -84,51 +86,79 @@ class Game extends Component {
     }].sort(this.sorter);
   }
 
-  handleClick = ({ target: { className } }) => {
-    const wrongButtons = document.querySelectorAll('.wrong-answer');
-    wrongButtons.forEach((button) => {
-      button.className = 'clicked-wrong';
-    });
+  nextClick = () => {
+    const maxQIndex = 4;
+    const { qIndex } = this.state;
+    const { history } = this.props;
+    const wrongButtons = document.querySelectorAll('.clicked-wrong');
+    if (wrongButtons.length) {
+      wrongButtons.forEach((button) => {
+        button.classList.remove('clicked-wrong');
+      });
+    }
 
-    console.log(className);
+    const correctButton = document.querySelector('.clicked-correct');
+    if (correctButton) correctButton.classList.remove('clicked-correct');
 
-    const correctButton = document.querySelector('.correct-answer');
-    correctButton.className = 'clicked-correct';
-
-    clearInterval(this.periodAnswer);
-
-    if (className === this.correctAnswerClass) {
-      const { updateScoreAndAssertion, questions } = this.props;
-      const { timer, qIndex } = this.state;
-      const { difficulty } = questions[qIndex];
-      const hard = 3;
-      const medium = 2;
-      const defaultPoints = 10;
-
-      let diffPoints = 0;
-      switch (difficulty) {
-      case 'medium':
-        diffPoints = medium;
-        break;
-      case 'hard':
-        diffPoints = hard;
-        break;
-      default:
-        diffPoints = 1;
-      }
-
-      const score = defaultPoints + (timer * diffPoints);
-      updateScoreAndAssertion(score, 1);
+    if (qIndex !== maxQIndex) {
+      this.setState((prevState) => ({
+        qIndex: prevState.qIndex + 1,
+        timer: 30,
+        nextVisible: false,
+        isTimerOut: false,
+        positions: {
+          0: this.randomNumber(),
+          1: this.randomNumber(),
+          2: this.randomNumber(),
+          3: this.randomNumber(),
+        },
+      }), this.timerAnswer);
+    } else {
+      history.push('/feedback');
     }
   }
 
+  handleClick = ({ target: { name } }) => {
+    this.setState({ nextVisible: true }, () => {
+      const wrongButtons = document.getElementsByName('wrong-answer');
+      wrongButtons.forEach((button) => {
+        button.className = 'clicked-wrong';
+      });
+
+      const correctButton = document.getElementsByName(this.correctAnswerClass);
+      correctButton[0].className = 'clicked-correct';
+
+      clearInterval(this.periodAnswer);
+
+      if (name === this.correctAnswerClass) {
+        const { updateScoreAndAssertion, questions } = this.props;
+        const { timer, qIndex } = this.state;
+        const { difficulty } = questions[qIndex];
+        const hard = 3;
+        const medium = 2;
+        const defaultPoints = 10;
+
+        let diffPoints = 0;
+        switch (difficulty) {
+        case 'medium':
+          diffPoints = medium;
+          break;
+        case 'hard':
+          diffPoints = hard;
+          break;
+        default:
+          diffPoints = 1;
+        }
+
+        const score = defaultPoints + (timer * diffPoints);
+        updateScoreAndAssertion(score, 1);
+      }
+    });
+  }
+
   render() {
-    const { qIndex, timer, isTimerOut } = this.state;
+    const { qIndex, timer, isTimerOut, nextVisible } = this.state;
     const { questions } = this.props;
-    let answers = [];
-    if (questions.length > 0) {
-      answers = this.answersMixer(questions[qIndex]);
-    }
     return (
       <>
         <Header />
@@ -149,11 +179,12 @@ class Game extends Component {
                 <span>{ timer }</span>
               </div>
               <div data-testid="answer-options" className="answers">
-                {answers.map((answer, index) => (
+                {this.answersMixer(questions[qIndex]).map((answer, index) => (
                   <button
                     type="button"
                     data-testid={ answer.testId }
                     key={ index }
+                    name={ answer.className }
                     className={ answer.className }
                     onClick={ this.handleClick }
                     disabled={ isTimerOut }
@@ -166,7 +197,16 @@ class Game extends Component {
               </div>
             </main>
           )}
-
+        {nextVisible
+        && (
+          <button
+            type="button"
+            data-testid="btn-next"
+            onClick={ this.nextClick }
+          >
+            Next
+          </button>
+        )}
       </>
     );
   }
