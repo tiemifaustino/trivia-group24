@@ -13,7 +13,7 @@ const apiQuestionsFetch = async (token) => {
   const URL_TOKEN = 'https://opentdb.com/api_token.php?command=request';
   const newTokenResponse = await fetch(URL_TOKEN, METHOD);
   const newTokenData = await newTokenResponse.json();
-  
+
   const newResponse = await fetch(urlGenerator(newTokenData.token), METHOD);
   const newData = await newResponse.json();
   return { results: newData.results, newToken: newTokenData.token };
