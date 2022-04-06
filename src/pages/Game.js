@@ -204,7 +204,7 @@ class Game extends Component {
             data-testid="btn-next"
             onClick={ this.nextClick }
           >
-            Next
+            Próximo
           </button>
         )}
       </>
