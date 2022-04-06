@@ -26,7 +26,7 @@ class Login extends Component {
     history.push('/game');
   }
 
-  handleConfigClick = async () => {
+  handleConfigClick = () => {
     const {
       history,
     } = this.props;

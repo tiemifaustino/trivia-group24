@@ -50,10 +50,7 @@ export const getSaveToken = () => async (dispatch) => {
 export const getQuestions = (token) => async (dispatch) => {
   try {
     const newReq = await apiQuestionsFetch(token);
-    console.log('all', newReq);
-    console.log('new results', newReq.results);
     dispatch(updateQuestions(newReq.results));
-    console.log('new token', newReq.newToken);
     dispatch(updateToken(newReq.newToken));
   } catch (error) {
     dispatch(apiOnFailure(error));

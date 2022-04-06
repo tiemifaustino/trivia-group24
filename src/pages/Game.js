@@ -12,7 +12,6 @@ class Game extends Component {
 
   componentDidMount() {
     const { token, questionsUpdate } = this.props;
-    console.log('didmount', token);
     questionsUpdate(token);
   }
 
