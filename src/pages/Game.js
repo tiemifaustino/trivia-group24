@@ -10,15 +10,17 @@ class Game extends Component {
     qIndex: 0,
     timer: 30,
     isTimerOut: false,
+    positions: {},
   }
 
   componentDidMount() {
     const { token, questionsUpdate } = this.props;
     questionsUpdate(token);
     this.timerAnswer();
+    this.positionMaker();
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(_prevProps, prevState) {
     if (prevState.timer === 0) {
       this.setState({
         isTimerOut: true,
@@ -40,6 +42,16 @@ class Game extends Component {
     return Math.random() * possibilities;
   }
 
+  positionMaker = () => {
+    const positions = {
+      0: this.randomNumber(),
+      1: this.randomNumber(),
+      2: this.randomNumber(),
+      3: this.randomNumber(),
+    };
+    this.setState({ positions });
+  }
+
   sorter = (a, b) => {
     const minusOne = -1;
     if (a.position > b.position) {
@@ -55,16 +67,18 @@ class Game extends Component {
     correct_answer: correctAnswer,
     incorrect_answers: incorrectAnswers,
   }) => {
+    const { positions } = this.state;
+    console.log([...incorrectAnswers, correctAnswer]);
     const incAnsw = incorrectAnswers.map((answer, index) => ({
       answer,
       testId: `wrong-answer-${index}`,
-      position: this.randomNumber(),
+      position: positions[index],
       className: 'wrong-answer',
     }));
     return [...incAnsw, {
       answer: correctAnswer,
       testId: 'correct-answer',
-      position: this.randomNumber(),
+      position: positions[3],
       className: 'correct-answer',
     }].sort(this.sorter);
   }
@@ -81,6 +95,10 @@ class Game extends Component {
   render() {
     const { qIndex, timer, isTimerOut } = this.state;
     const { questions } = this.props;
+    let answers = [];
+    if (questions.length > 0) {
+      answers = this.answersMixer(questions[qIndex]);
+    }
     return (
       <>
         <Header />
@@ -101,7 +119,7 @@ class Game extends Component {
                 <span>{ timer }</span>
               </div>
               <div data-testid="answer-options" className="answers">
-                {this.answersMixer(questions[qIndex]).map((answer, index) => (
+                {answers.map((answer, index) => (
                   <button
                     type="button"
                     data-testid={ answer.testId }
