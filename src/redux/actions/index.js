@@ -8,6 +8,7 @@ export const UPDATE_QUESTIONS = 'UPDATE_QUESTIONS';
 export const REQUIRE = 'REQUIRE';
 export const USER_TOKEN = 'USER_TOKEN';
 export const USER_DATA = 'USER_DATA';
+export const SCORE_UPDATE = 'SCORE_UPDATE';
 
 // Actions
 
@@ -34,6 +35,12 @@ export const apiOnFailure = (error) => ({
 export const updateQuestions = (questions) => ({
   type: UPDATE_QUESTIONS,
   questions,
+});
+
+export const updateScore = (score, assertion) => ({
+  type: SCORE_UPDATE,
+  score,
+  assertion,
 });
 
 // Thunk Functions
