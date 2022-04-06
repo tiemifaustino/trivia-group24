@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getSaveToken, savePlayer } from '../redux/actions';
+import { getSaveToken, newGame, savePlayer } from '../redux/actions';
 import './Login.css';
 
 class Login extends Component {
@@ -9,6 +9,11 @@ class Login extends Component {
     name: '',
     email: '',
     isBtnDisabled: true,
+  }
+
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch(newGame());
   }
 
   handleChange = ({ target: { name, value } }) => {

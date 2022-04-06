@@ -9,6 +9,7 @@ export const REQUIRE = 'REQUIRE';
 export const USER_TOKEN = 'USER_TOKEN';
 export const USER_DATA = 'USER_DATA';
 export const SCORE_UPDATE = 'SCORE_UPDATE';
+export const NEW_GAME = 'NEW_GAME';
 
 // Actions
 
@@ -42,6 +43,8 @@ export const updateScore = (score, assertion) => ({
   score,
   assertion,
 });
+
+export const newGame = () => ({ type: NEW_GAME });
 
 // Thunk Functions
 

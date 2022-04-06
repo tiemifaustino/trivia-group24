@@ -7,7 +7,21 @@ class Ranking extends Component {
     history.push('/');
   };
 
+  sorter = (a, b) => {
+    const minusOne = -1;
+    if (a.score < b.score) {
+      return 1;
+    }
+    if (a.score > b.score) {
+      return minusOne;
+    }
+    return 0;
+  }
+
   render() {
+    const ranking = JSON.parse(localStorage.getItem('ranking'));
+    ranking.sort(this.sorter);
+
     return (
       <>
         <h1 data-testid="ranking-title">
@@ -20,6 +34,16 @@ class Ranking extends Component {
         >
           Play Again
         </button>
+        {ranking.map((player, index) => (
+          <div className="ranked-player" key={ index }>
+            <img
+              alt="icone gravatar"
+              src={ player.picture }
+            />
+            <p data-testid={ `player-name-${index}` }>{player.name}</p>
+            <p data-testid={ `player-score-${index}` }>{player.score}</p>
+          </div>
+        ))}
       </>
     );
   }
