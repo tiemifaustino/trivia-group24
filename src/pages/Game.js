@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
-import { getQuestions } from '../redux/actions';
+import { getQuestions, updateScore } from '../redux/actions';
 import './Game.css';
 
 class Game extends Component {
@@ -13,6 +13,8 @@ class Game extends Component {
     positions: {},
     isButtonVisible: false,
   }
+
+  correctAnswerClass = 'correct-answer';
 
   componentDidMount() {
     const { token, questionsUpdate } = this.props;
@@ -77,9 +79,9 @@ class Game extends Component {
     }));
     return [...incAnsw, {
       answer: correctAnswer,
-      testId: 'correct-answer',
+      testId: this.correctAnswerClass,
       position: positions[3],
-      className: 'correct-answer',
+      className: this.correctAnswerClass,
     }].sort(this.sorter);
   }
 
@@ -89,14 +91,43 @@ class Game extends Component {
     }));
   }
 
-  handleClick = () => {
+  handleClick = ({ target: { className } }) => {
+
     const wrongButtons = document.querySelectorAll('.wrong-answer');
     wrongButtons.forEach((button) => {
       button.className = 'clicked-wrong';
     });
+
     const correctButton = document.querySelector('.correct-answer');
     correctButton.className = 'clicked-correct';
+
     this.setState({ isButtonVisible: true });
+
+    clearInterval(this.periodAnswer);
+
+    if (className === this.correctAnswerClass) {
+      const { updateScoreAndAssertion, questions } = this.props;
+      const { timer, qIndex } = this.state;
+      const { difficulty } = questions[qIndex];
+      const hard = 3;
+      const medium = 2;
+      const defaultPoints = 10;
+
+      let diffPoints = 0;
+      switch (difficulty) {
+      case 'medium':
+        diffPoints = medium;
+        break;
+      case 'hard':
+        diffPoints = hard;
+        break;
+      default:
+        diffPoints = 1;
+      }
+
+      const score = defaultPoints + (timer * diffPoints);
+      updateScoreAndAssertion(score, 1);
+    }
   }
 
   render() {
@@ -166,12 +197,14 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   questionsUpdate: (token) => dispatch(getQuestions(token)),
+  updateScoreAndAssertion: (score, assertion) => dispatch(updateScore(score, assertion)),
 });
 
 Game.propTypes = {
   token: PropTypes.string,
   questionsUpdate: PropTypes.func,
   questions: PropTypes.arrayOf(PropTypes.object),
+  updateScoreAndAssertion: PropTypes.func,
 }.isRequired;
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);
