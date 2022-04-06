@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
 import { getQuestions } from '../redux/actions';
+import './Game.css';
 
 class Game extends Component {
   state={
@@ -39,12 +40,23 @@ class Game extends Component {
       answer,
       testId: `wrong-answer-${index}`,
       position: this.randomNumber(),
+      className: 'wrong-answer',
     }));
     return [...incAnsw, {
       answer: correctAnswer,
       testId: 'correct-answer',
       position: this.randomNumber(),
+      className: 'correct-answer',
     }].sort(this.sorter);
+  }
+
+  handleClick = () => {
+    const wrongButtons = document.querySelectorAll('.wrong-answer');
+    wrongButtons.forEach((button) => {
+      button.className = 'clicked-wrong';
+    });
+    const correctButton = document.querySelector('.correct-answer');
+    correctButton.className = 'clicked-correct';
   }
 
   render() {
@@ -66,6 +78,8 @@ class Game extends Component {
                     type="button"
                     data-testid={ answer.testId }
                     key={ index }
+                    className={ answer.className }
+                    onClick={ this.handleClick }
                   >
                     {answer.answer}
                   </button>
