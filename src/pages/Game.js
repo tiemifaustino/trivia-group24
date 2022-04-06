@@ -211,7 +211,7 @@ class Game extends Component {
     );
   }
 }
-
+// teste
 const mapStateToProps = (state) => ({
   token: state.token,
   questions: state.questions.questions,
