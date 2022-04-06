@@ -68,7 +68,6 @@ class Game extends Component {
     incorrect_answers: incorrectAnswers,
   }) => {
     const { positions } = this.state;
-    console.log([...incorrectAnswers, correctAnswer]);
     const incAnsw = incorrectAnswers.map((answer, index) => ({
       answer,
       testId: `wrong-answer-${index}`,
