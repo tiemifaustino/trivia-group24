@@ -11,6 +11,7 @@ class Game extends Component {
     timer: 30,
     isTimerOut: false,
     positions: {},
+    isButtonVisible: false,
   }
 
   componentDidMount() {
@@ -82,6 +83,12 @@ class Game extends Component {
     }].sort(this.sorter);
   }
 
+  nextBtnClick = () => {
+    this.setState((previousState) => ({
+      qIndex: previousState.qIndex + 1,
+    }));
+  }
+
   handleClick = () => {
     const wrongButtons = document.querySelectorAll('.wrong-answer');
     wrongButtons.forEach((button) => {
@@ -89,10 +96,11 @@ class Game extends Component {
     });
     const correctButton = document.querySelector('.correct-answer');
     correctButton.className = 'clicked-correct';
+    this.setState({ isButtonVisible: true });
   }
 
   render() {
-    const { qIndex, timer, isTimerOut } = this.state;
+    const { qIndex, timer, isTimerOut, isButtonVisible } = this.state;
     const { questions } = this.props;
     let answers = [];
     if (questions.length > 0) {
@@ -133,6 +141,16 @@ class Game extends Component {
                   </button>
                 ))}
               </div>
+              { isButtonVisible
+              && (
+                <button
+                  type="button"
+                  data-testid="btn-next"
+                  onClick={ this.nextBtnClick }
+                >
+                  Next
+                </button>
+              )}
             </main>
           )}
 
