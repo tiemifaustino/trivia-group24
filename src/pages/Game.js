@@ -8,11 +8,31 @@ import './Game.css';
 class Game extends Component {
   state={
     qIndex: 0,
+    timer: 30,
+    isTimerOut: false,
   }
 
   componentDidMount() {
     const { token, questionsUpdate } = this.props;
     questionsUpdate(token);
+    this.timerAnswer();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.timer === 0) {
+      this.setState({
+        isTimerOut: true,
+        timer: 0,
+      });
+      clearInterval(this.periodAnswer);
+    }
+  }
+
+  timerAnswer = () => {
+    const ONE_SECOND = 1000;
+    this.periodAnswer = setInterval(() => {
+      this.setState((prevState) => ({ timer: prevState.timer - 1 }));
+    }, ONE_SECOND);
   }
 
   randomNumber = () => {
@@ -59,7 +79,7 @@ class Game extends Component {
   }
 
   render() {
-    const { qIndex } = this.state;
+    const { qIndex, timer, isTimerOut } = this.state;
     const { questions } = this.props;
     return (
       <>
@@ -77,6 +97,8 @@ class Game extends Component {
                     .replace(/&#039;/g, '\'')
                     .replace(/&eacute;/g, 'é')}
                 </p>
+                <span>Timer</span>
+                <span>{ timer }</span>
               </div>
               <div data-testid="answer-options" className="answers">
                 {this.answersMixer(questions[qIndex]).map((answer, index) => (
@@ -86,6 +108,7 @@ class Game extends Component {
                     key={ index }
                     className={ answer.className }
                     onClick={ this.handleClick }
+                    disabled={ isTimerOut }
                   >
                     {answer.answer.replace(/&quot;/g, '"')
                       .replace(/&#039;/g, '\'')
