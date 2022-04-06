@@ -66,12 +66,19 @@ class Game extends Component {
         <Header />
         {(questions.length > 0)
           && (
-            <>
-              <div>
-                <p data-testid="question-category">{ questions[qIndex].category }</p>
-                <p data-testid="question-text">{ questions[qIndex].question }</p>
+            <main>
+              <div className="question-info">
+                <p data-testid="question-category">
+                  { questions[qIndex].category }
+                </p>
+                <p data-testid="question-text">
+                  { questions[qIndex].question
+                    .replace(/&quot;/g, '"')
+                    .replace(/&#039;/g, '\'')
+                    .replace(/&eacute;/g, 'é')}
+                </p>
               </div>
-              <div data-testid="answer-options">
+              <div data-testid="answer-options" className="answers">
                 {this.answersMixer(questions[qIndex]).map((answer, index) => (
                   <button
                     type="button"
@@ -80,11 +87,13 @@ class Game extends Component {
                     className={ answer.className }
                     onClick={ this.handleClick }
                   >
-                    {answer.answer}
+                    {answer.answer.replace(/&quot;/g, '"')
+                      .replace(/&#039;/g, '\'')
+                      .replace(/&ouml;/, 'ö')}
                   </button>
                 ))}
               </div>
-            </>
+            </main>
           )}
 
       </>

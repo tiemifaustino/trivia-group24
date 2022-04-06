@@ -1,0 +1,30 @@
+header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.game-title {
+  font-weight: 600;
+}
+
+.player-info {
+  align-items: center;
+  display: flex;
+  gap: 5px;
+  justify-content: space-around;
+}
+
+.player-info img {
+  border-radius: 100%;
+  width: 50px;
+}
+
+.player-name {
+  font-weight: 500;
+}
+
+.header-score {
+  font-weight: 500;
+}
