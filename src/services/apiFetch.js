@@ -1,8 +1,15 @@
-const urlGenerator = (token) => `https://opentdb.com/api.php?amount=5&token=${token}`;
+const urlGenerator = (token, configs) => {
+  console.log(configs);
+  const teste = {};
+  if (configs === teste) {
+    console.log(`https://opentdb.com/api.php?amount=5&token=${token}`);
+    return `https://opentdb.com/api.php?amount=5&token=${token}`;
+  }
+};
 
-const apiQuestionsFetch = async (token) => {
+const apiQuestionsFetch = async (token, configs) => {
   const METHOD = { method: 'GET' };
-  const response = await fetch(urlGenerator(token), METHOD);
+  const response = await fetch(urlGenerator(token, configs), METHOD);
   const data = await response.json();
   const { response_code: responseCode, results } = data;
 
@@ -12,7 +19,7 @@ const apiQuestionsFetch = async (token) => {
   const newTokenResponse = await fetch(URL_TOKEN, METHOD);
   const newTokenData = await newTokenResponse.json();
 
-  const newResponse = await fetch(urlGenerator(newTokenData.token), METHOD);
+  const newResponse = await fetch(urlGenerator(newTokenData.token, configs), METHOD);
   const newData = await newResponse.json();
   return { results: newData.results, newToken: newTokenData.token };
 };
