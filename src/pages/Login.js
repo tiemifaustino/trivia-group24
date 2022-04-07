@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { FiSettings } from 'react-icons/fi';
 import { connect } from 'react-redux';
+import logoTrivia from '../helpers/logoTrivia.png';
 import { getSaveToken, newGame, savePlayer } from '../redux/actions';
 import './Login.css';
 
@@ -41,8 +43,9 @@ class Login extends Component {
 
   validateForm = () => {
     const { name, email } = this.state;
+    const validEmail = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 
-    if (name.length && email.length) {
+    if (name.length && email.match(validEmail)) {
       this.setState({ isBtnDisabled: false });
     } else {
       this.setState({ isBtnDisabled: true });
@@ -58,10 +61,17 @@ class Login extends Component {
           type="button"
           data-testid="btn-settings"
           onClick={ this.handleConfigClick }
+          title="Configurações"
         >
-          Configurações
+          <FiSettings />
         </button>
+        <div className="lgn-pg-title">
+          <img src={ logoTrivia } alt="Imagem jogo" width="50px" />
+          <h1>TrybeTrivia</h1>
+        </div>
+
         <div className="login-block">
+          <h2>Login</h2>
           <input
             type="text"
             value={ name }
