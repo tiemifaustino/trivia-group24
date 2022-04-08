@@ -1,30 +1,43 @@
 header {
   align-items: center;
+  background-color: black;
   display: flex;
   justify-content: space-between;
-  padding: 10px;
+  padding: 30px 20px;
 }
 
 .game-title {
+  align-items: center;
+  display: flex;
+  font-size: 1.3rem;
   font-weight: 600;
+  gap: 5px;
 }
 
 .player-info {
   align-items: center;
   display: flex;
-  gap: 5px;
+  gap: 15px;
   justify-content: space-around;
+  margin-right: 10px;
 }
 
 .player-info img {
   border-radius: 100%;
-  width: 50px;
+  width: 40px;
 }
 
-.player-name {
-  font-weight: 500;
+.player-info p {
+  font-weight: 700;
 }
 
 .header-score {
-  font-weight: 500;
+  align-items: center;
+  display: flex;
+  gap: 5px;
+  margin-left: 10px;
+}
+
+.game-icon {
+  font-size: 1.8rem;
 }
