@@ -18,8 +18,8 @@ class Config extends Component {
 
   handleSaveConfig = () => {
     const {
-      history,
       dispatch,
+      history,
     } = this.props;
     dispatch(saveConfigs(this.state));
     history.push('/');
@@ -33,16 +33,22 @@ class Config extends Component {
           <label htmlFor="category">
             Selecione a categoria
             <select id="category" name="category" onChange={ this.handleChange }>
+              <option>Qualquer categoria</option>
               <option>Conhecimentos gerais</option>
               <option>Entretenimento: livros</option>
               <option>Entretenimento: filmes</option>
               <option>Entretenimento: musicas</option>
-              <option>Entretenimento: musicais e teatro</option>
+              <option
+                value="Entretenimento: musicais e teatro"
+              >
+                Entretenimento: musicais e teatro
+              </option>
             </select>
           </label>
           <label htmlFor="difficulty">
             Selecione a dificuldade
             <select id="difficulty" name="difficulty" onChange={ this.handleChange }>
+              <option>Qualquer dificuldade</option>
               <option>Fácil</option>
               <option>Médio</option>
               <option>Difícil</option>
@@ -51,12 +57,13 @@ class Config extends Component {
           <label htmlFor="type">
             Selecione o tipo
             <select id="type" name="type" onChange={ this.handleChange }>
+              <option>Qualquer tipo</option>
               <option>Múltipla escolha</option>
               <option>verdadeiro/falso</option>
             </select>
           </label>
         </form>
-        <button type="button" onClick={ this.handleSaveConfig }>Salvar</button>
+        <button type="button" onClick={ this.handleSaveConfig }>Voltar</button>
       </>
     );
   }

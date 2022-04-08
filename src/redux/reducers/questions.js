@@ -3,7 +3,7 @@ import { REQ_FAILURE, UPDATE_QUESTIONS, SAVE_CONFIGS } from '../actions';
 const INITIAL_STATE = {
   questions: [],
   error: null,
-  configs: {},
+  configs: 'inicial-state',
 };
 
 const questions = (state = INITIAL_STATE, action) => {
