@@ -6,6 +6,8 @@ import Header from '../components/Header';
 import { getQuestions, updateScore } from '../redux/actions';
 import './Game.css';
 
+const he = require('he');
+
 class Game extends Component {
   state={
     qIndex: 0,
@@ -135,7 +137,6 @@ class Game extends Component {
       wrongButtons.forEach((button) => {
         button.className = 'clicked-wrong';
       });
-
       const correctButton = document.getElementsByName(this.correctAnswerClass);
       correctButton[0].className = 'clicked-correct';
 
@@ -160,7 +161,6 @@ class Game extends Component {
         default:
           diffPoints = 1;
         }
-
         const score = defaultPoints + (timer * diffPoints);
         updateScoreAndAssertion(score, 1);
       }
@@ -181,10 +181,7 @@ class Game extends Component {
                   { questions[qIndex].category }
                 </p>
                 <p data-testid="question-text">
-                  { questions[qIndex].question
-                    .replace(/&quot;/g, '"')
-                    .replace(/&#039;/g, '\'')
-                    .replace(/&eacute;/g, 'é')}
+                  { he.decode(questions[qIndex].question) }
                 </p>
                 <span>Timer</span>
                 <span>{ timer }</span>
@@ -200,9 +197,7 @@ class Game extends Component {
                     onClick={ this.handleClick }
                     disabled={ isTimerOut }
                   >
-                    {answer.answer.replace(/&quot;/g, '"')
-                      .replace(/&#039;/g, '\'')
-                      .replace(/&ouml;/, 'ö')}
+                    {he.decode(answer.answer)}
                   </button>
                 ))}
               </div>
@@ -215,7 +210,7 @@ class Game extends Component {
             data-testid="btn-next"
             onClick={ this.nextClick }
           >
-            Próximo
+            Next
           </button>
         )}
       </>

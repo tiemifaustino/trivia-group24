@@ -1,0 +1,78 @@
+.feedback-page {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.feedback-page h1 {
+  margin: 20px;
+}
+
+.feedback-page img {
+  margin: 20px;
+  width: 50%;
+}
+
+.total-score, .total-assertions {
+  align-items: center;
+  display: flex;
+  font-weight: 700;
+  gap: 4px;
+  margin: 10px;
+}
+
+.feedback-page span {
+  font-weight: 500;
+}
+
+.total-score-icon {
+  font-size: larger;
+}
+
+.total-assert-icon {
+  color: green;
+}
+
+.feedback-btns {
+  display: flex;
+  gap: 50px;
+  justify-content: center;
+  margin: 20px;
+  width: 50vw;
+}
+
+.feedback-btns button {
+  align-items: center;
+  border: none;
+  border-radius: 10px;
+  display: flex;
+  font-weight: 700;
+  gap: 5px;
+  padding: 14px 20px;
+}
+
+.btn-ranking {
+  background-color: #947307;
+  color: whitesmoke;
+}
+
+.replay-icon {
+  font-size: larger;
+  font-weight: 900;
+}
+
+.btn-play-again {
+  background-color: rgb(19, 45, 80);
+  color: whitesmoke;
+}
+
+.btn-ranking:hover {
+  background-color: #bd940f;
+  cursor: pointer;
+}
+
+.btn-play-again:hover {
+  background-color: rgb(19, 62, 119);
+  cursor: pointer;
+}

@@ -1,0 +1,32 @@
+.ranking-page {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.ranking-title {
+  margin: 30px;
+}
+
+.ranking-table {
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  width: 80vw;
+}
+
+.ranked-player {
+  display: flex;
+}
+
+.ranking-btn {
+  align-items: center;
+  border: none;
+  border-radius: 10px;
+  display: flex;
+  font-weight: 700;
+  gap: 5px;
+  padding: 14px 20px;
+  text-align: center;
+}
