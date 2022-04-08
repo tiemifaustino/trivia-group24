@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { MdReplay } from 'react-icons/md';
-import Header from '../components/Header';
 import './Ranking.css';
 
 class Ranking extends Component {
@@ -26,42 +25,39 @@ class Ranking extends Component {
     ranking.sort(this.sorter);
 
     return (
-      <>
-        <Header />
-        <div className="ranking-page">
-          <h1
-            data-testid="ranking-title"
-            className="ranking-title"
-          >
-            Ranking
-          </h1>
-          <div className="ranking-table">
-            {ranking.map((player, index) => (
-              <div className="ranked-player" key={ index }>
-                <img
-                  alt="icone gravatar"
-                  src={ player.picture }
-                />
-                <p data-testid={ `player-name-${index}` }>
-                  {player.name}
-                </p>
-                <p data-testid={ `player-score-${index}` }>
-                  {player.score}
-                </p>
-              </div>
-            ))}
-          </div>
-          <button
-            type="button"
-            data-testid="btn-go-home"
-            onClick={ this.handlePlayAgain }
-            className="btn-play-again ranking-btn"
-          >
-            <MdReplay className="replay-icon" />
-            Play Again
-          </button>
+      <div className="ranking-page">
+        <h1
+          data-testid="ranking-title"
+          className="ranking-title"
+        >
+          Ranking
+        </h1>
+        <div className="ranking-table">
+          {ranking.map((player, index) => (
+            <div className="ranked-player" key={ index }>
+              <img
+                alt="icone gravatar"
+                src={ player.picture }
+              />
+              <p data-testid={ `player-name-${index}` }>
+                {player.name}
+              </p>
+              <p data-testid={ `player-score-${index}` }>
+                {player.score}
+              </p>
+            </div>
+          ))}
         </div>
-      </>
+        <button
+          type="button"
+          data-testid="btn-go-home"
+          onClick={ this.handlePlayAgain }
+          className="btn-play-again ranking-btn"
+        >
+          <MdReplay className="replay-icon" />
+          Play Again
+        </button>
+      </div>
     );
   }
 }
