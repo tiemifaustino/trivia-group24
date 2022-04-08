@@ -20,8 +20,8 @@ class Game extends Component {
   correctAnswerClass = 'correct-answer';
 
   componentDidMount() {
-    const { token, questionsUpdate } = this.props;
-    questionsUpdate(token);
+    const { token, questionsUpdate, configs } = this.props;
+    questionsUpdate(token, configs);
     this.timerAnswer();
     this.positionMaker();
   }
@@ -224,10 +224,11 @@ const mapStateToProps = (state) => ({
   name: state.player.name,
   gravatarEmail: state.player.email,
   score: state.player.score,
+  configs: state.questions.configs,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  questionsUpdate: (token) => dispatch(getQuestions(token)),
+  questionsUpdate: (token, configs) => dispatch(getQuestions(token, configs)),
   updateScoreAndAssertion: (score, assertion) => dispatch(updateScore(score, assertion)),
 });
 
