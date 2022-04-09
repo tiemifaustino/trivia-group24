@@ -38,7 +38,7 @@ class Login extends Component {
     const {
       history,
     } = this.props;
-    history.push('/config');
+    history.push('/settings');
   }
 
   validateForm = () => {

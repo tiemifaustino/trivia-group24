@@ -1,9 +1,13 @@
-import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import { FiSettings } from 'react-icons/fi';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import logoTrivia from '../helpers/logoTrivia.png';
 import { saveConfigs } from '../redux/actions';
+import './Settings.css';
 
-class Config extends Component {
+class Settings extends Component {
   state = {
     category: '',
     difficulty: '',
@@ -27,11 +31,31 @@ class Config extends Component {
 
   render() {
     return (
-      <>
-        <h1 data-testid="settings-title">CONFIGURAÇÕES</h1>
-        <form>
+      <div className="settings-page">
+        <header className="header-game">
+          <div className="game-title">
+            <Link to="/">
+              <img src={ logoTrivia } alt="Imagem jogo" width="50px" title="Home" />
+            </Link>
+            <h3>TrybeTrivia</h3>
+          </div>
+          <div className="game-title settings-header">
+            <h3
+              data-testid="settings-title"
+              className="settings-title"
+            >
+              Settings
+              {'   '}
+              <FiSettings
+                className="settings-icon"
+              />
+            </h3>
+          </div>
+        </header>
+
+        <form className="settings-form">
           <label htmlFor="category">
-            Selecione a categoria
+            Category
             <select id="category" name="category" onChange={ this.handleChange }>
               <option>Qualquer categoria</option>
               <option>Conhecimentos gerais</option>
@@ -46,31 +70,31 @@ class Config extends Component {
             </select>
           </label>
           <label htmlFor="difficulty">
-            Selecione a dificuldade
+            Difficulty
             <select id="difficulty" name="difficulty" onChange={ this.handleChange }>
-              <option>Qualquer dificuldade</option>
+              <option>Any difficulty</option>
               <option>Fácil</option>
               <option>Médio</option>
               <option>Difícil</option>
             </select>
           </label>
           <label htmlFor="type">
-            Selecione o tipo
+            Question Type
             <select id="type" name="type" onChange={ this.handleChange }>
-              <option>Qualquer tipo</option>
-              <option>Múltipla escolha</option>
-              <option>verdadeiro/falso</option>
+              <option>All</option>
+              <option>Multiple Choice</option>
+              <option>True / False</option>
             </select>
           </label>
         </form>
-        <button type="button" onClick={ this.handleSaveConfig }>Voltar</button>
-      </>
+        <button type="button" onClick={ this.handleSaveConfig }>Save</button>
+      </div>
     );
   }
 }
 
-Config.propTypes = {
+Settings.propTypes = {
   history: PropTypes.shape(),
 }.isRequired;
 
-export default connect()(Config);
+export default connect()(Settings);
