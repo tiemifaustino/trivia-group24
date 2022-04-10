@@ -170,8 +170,7 @@ class Game extends Component {
                     <p data-testid="question-text">
                       { he.decode(questions[qIndex].question) }
                     </p>
-                    <span>Timer</span>
-                    <span>{ timer }</span>
+                    <p>{ timer }</p>
                   </div>
                   <div data-testid="answer-options" className="answers">
                     {this.answersMixer(questions[qIndex]).map((answer, index) => (
@@ -194,6 +193,7 @@ class Game extends Component {
                       type="button"
                       data-testid="btn-next"
                       onClick={ this.nextClick }
+                      className="btn-next"
                     >
                       Next
                     </button>
