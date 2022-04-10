@@ -1,9 +1,14 @@
-import { REQ_FAILURE, UPDATE_QUESTIONS, SAVE_CONFIGS } from '../actions';
+import { REQ_FAILURE, SAVE_SETTINGS, UPDATE_QUESTIONS } from '../actions';
 
 const INITIAL_STATE = {
   questions: [],
   error: null,
-  configs: 'inicial-state',
+  settings: {
+    category: 'any',
+    difficulty: 'any',
+    questionType: 'any',
+  }
+  ,
 };
 
 const questions = (state = INITIAL_STATE, action) => {
@@ -12,8 +17,8 @@ const questions = (state = INITIAL_STATE, action) => {
     return { ...state, questions: action.questions };
   case REQ_FAILURE:
     return { ...state, error: action.error };
-  case SAVE_CONFIGS:
-    return { ...state, configs: action.configs };
+  case SAVE_SETTINGS:
+    return { ...state, settings: action.settings };
   default:
     return state;
   }

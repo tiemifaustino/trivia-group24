@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { FiSettings } from 'react-icons/fi';
 import { connect } from 'react-redux';
+import Footer from '../components/Footer';
 import logoTrivia from '../helpers/logoTrivia.png';
 import { getSaveToken, newGame, savePlayer } from '../redux/actions';
 import './Login.css';
@@ -34,7 +35,7 @@ class Login extends Component {
     history.push('/game');
   }
 
-  handleConfigClick = () => {
+  handleSettingsClick = () => {
     const {
       history,
     } = this.props;
@@ -60,13 +61,13 @@ class Login extends Component {
           className="config-btn"
           type="button"
           data-testid="btn-settings"
-          onClick={ this.handleConfigClick }
-          title="Configurações"
+          onClick={ this.handleSettingsClick }
+          title="Settings"
         >
           <FiSettings />
         </button>
         <div className="lgn-pg-title">
-          <img src={ logoTrivia } alt="Imagem jogo" width="50px" />
+          <img src={ logoTrivia } alt="game logo" width="50px" />
           <h1>TrybeTrivia</h1>
         </div>
 
@@ -97,6 +98,7 @@ class Login extends Component {
             Play
           </button>
         </div>
+        <Footer />
       </div>
     );
   }

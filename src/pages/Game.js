@@ -2,26 +2,21 @@ import md5 from 'crypto-js/md5';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
+import { correctAnswerClass, INITIAL_STATE, randomNumber, sorter } from '../helpers';
 import { getQuestions, updateScore } from '../redux/actions';
 import './Game.css';
 
 const he = require('he');
 
 class Game extends Component {
-  state={
-    qIndex: 0,
-    timer: 30,
-    isTimerOut: false,
-    positions: {},
-    nextVisible: false,
-  }
-
-  correctAnswerClass = 'correct-answer';
+  state = INITIAL_STATE;
 
   componentDidMount() {
-    const { token, questionsUpdate, configs } = this.props;
-    questionsUpdate(token, configs);
+    const { token, questionsUpdate, settings } = this.props;
+    questionsUpdate(token, settings);
     this.timerAnswer();
     this.positionMaker();
   }
@@ -44,30 +39,14 @@ class Game extends Component {
     }, ONE_SECOND);
   }
 
-  randomNumber = () => {
-    const possibilities = 100000000000;
-    return Math.random() * possibilities;
-  }
-
   positionMaker = () => {
     const positions = {
-      0: this.randomNumber(),
-      1: this.randomNumber(),
-      2: this.randomNumber(),
-      3: this.randomNumber(),
+      0: randomNumber(),
+      1: randomNumber(),
+      2: randomNumber(),
+      3: randomNumber(),
     };
     this.setState({ positions });
-  }
-
-  sorter = (a, b) => {
-    const minusOne = -1;
-    if (a.position > b.position) {
-      return 1;
-    }
-    if (a.position < b.position) {
-      return minusOne;
-    }
-    return 0;
   }
 
   answersMixer = ({
@@ -83,10 +62,10 @@ class Game extends Component {
     }));
     return [...incAnsw, {
       answer: correctAnswer,
-      testId: this.correctAnswerClass,
+      testId: correctAnswerClass,
       position: positions[3],
-      className: this.correctAnswerClass,
-    }].sort(this.sorter);
+      className: correctAnswerClass,
+    }].sort(sorter);
   }
 
   nextClick = () => {
@@ -110,10 +89,10 @@ class Game extends Component {
         nextVisible: false,
         isTimerOut: false,
         positions: {
-          0: this.randomNumber(),
-          1: this.randomNumber(),
-          2: this.randomNumber(),
-          3: this.randomNumber(),
+          0: randomNumber(),
+          1: randomNumber(),
+          2: randomNumber(),
+          3: randomNumber(),
         },
       }), this.timerAnswer);
     } else {
@@ -137,12 +116,12 @@ class Game extends Component {
       wrongButtons.forEach((button) => {
         button.className = 'clicked-wrong';
       });
-      const correctButton = document.getElementsByName(this.correctAnswerClass);
+      const correctButton = document.getElementsByName(correctAnswerClass);
       correctButton[0].className = 'clicked-correct';
 
       clearInterval(this.periodAnswer);
 
-      if (name === this.correctAnswerClass) {
+      if (name === correctAnswerClass) {
         const { updateScoreAndAssertion, questions } = this.props;
         const { timer, qIndex } = this.state;
         const { difficulty } = questions[qIndex];
@@ -175,44 +154,54 @@ class Game extends Component {
         <Header />
         {(questions.length > 0)
           && (
-            <main>
-              <div className="question-info">
-                <p data-testid="question-category">
-                  { questions[qIndex].category }
-                </p>
-                <p data-testid="question-text">
-                  { he.decode(questions[qIndex].question) }
-                </p>
-                <span>Timer</span>
-                <span>{ timer }</span>
-              </div>
-              <div data-testid="answer-options" className="answers">
-                {this.answersMixer(questions[qIndex]).map((answer, index) => (
-                  <button
-                    type="button"
-                    data-testid={ answer.testId }
-                    key={ index }
-                    name={ answer.className }
-                    className={ answer.className }
-                    onClick={ this.handleClick }
-                    disabled={ isTimerOut }
-                  >
-                    {he.decode(answer.answer)}
-                  </button>
-                ))}
-              </div>
-            </main>
+            questions.length === 1
+              ? (
+                <>
+                  <h1>{questions[0]}</h1>
+                  <Link to="/settings" className="change-settings">Change Settings</Link>
+                </>
+              )
+              : (
+                <main>
+                  <div className="question-info">
+                    <p data-testid="question-category">
+                      { questions[qIndex].category }
+                    </p>
+                    <p data-testid="question-text">
+                      { he.decode(questions[qIndex].question) }
+                    </p>
+                    <span>Timer</span>
+                    <span>{ timer }</span>
+                  </div>
+                  <div data-testid="answer-options" className="answers">
+                    {this.answersMixer(questions[qIndex]).map((answer, index) => (
+                      <button
+                        type="button"
+                        data-testid={ answer.testId }
+                        key={ index }
+                        name={ answer.className }
+                        className={ answer.className }
+                        onClick={ this.handleClick }
+                        disabled={ isTimerOut }
+                      >
+                        {he.decode(answer.answer)}
+                      </button>
+                    ))}
+                  </div>
+                  {nextVisible
+                  && (
+                    <button
+                      type="button"
+                      data-testid="btn-next"
+                      onClick={ this.nextClick }
+                    >
+                      Next
+                    </button>
+                  )}
+                </main>
+              )
           )}
-        {nextVisible
-        && (
-          <button
-            type="button"
-            data-testid="btn-next"
-            onClick={ this.nextClick }
-          >
-            Next
-          </button>
-        )}
+        <Footer />
       </>
     );
   }
@@ -224,11 +213,11 @@ const mapStateToProps = (state) => ({
   name: state.player.name,
   gravatarEmail: state.player.email,
   score: state.player.score,
-  configs: state.questions.configs,
+  settings: state.questions.settings,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  questionsUpdate: (token, configs) => dispatch(getQuestions(token, configs)),
+  questionsUpdate: (token, settings) => dispatch(getQuestions(token, settings)),
   updateScoreAndAssertion: (score, assertion) => dispatch(updateScore(score, assertion)),
 });
 

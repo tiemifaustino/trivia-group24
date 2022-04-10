@@ -5,6 +5,7 @@ import { GiPodium } from 'react-icons/gi';
 import { MdReplay } from 'react-icons/md';
 import { RiGamepadFill } from 'react-icons/ri';
 import { connect } from 'react-redux';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 import celebration from '../helpers/celebration.gif';
 import sad from '../helpers/sad.gif';
@@ -70,6 +71,7 @@ class Feedback extends Component {
             </button>
           </div>
         </div>
+        <Footer />
       </>
     );
   }

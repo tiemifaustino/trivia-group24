@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { GiPodium } from 'react-icons/gi';
 import { MdReplay } from 'react-icons/md';
+import Footer from '../components/Footer';
 import logoTrivia from '../helpers/logoTrivia.png';
 import './Ranking.css';
 
@@ -78,6 +79,7 @@ class Ranking extends Component {
             Play Again
           </button>
         </div>
+        <Footer />
       </>
     );
   }

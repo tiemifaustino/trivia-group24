@@ -10,7 +10,7 @@ export const USER_TOKEN = 'USER_TOKEN';
 export const USER_DATA = 'USER_DATA';
 export const SCORE_UPDATE = 'SCORE_UPDATE';
 export const NEW_GAME = 'NEW_GAME';
-export const SAVE_CONFIGS = 'SAVE_CONFIGS';
+export const SAVE_SETTINGS = 'SAVE_SETTINGS';
 
 // Actions
 
@@ -47,9 +47,9 @@ export const updateScore = (score, assertion) => ({
 
 export const newGame = () => ({ type: NEW_GAME });
 
-export const saveConfigs = (configs) => ({
-  type: SAVE_CONFIGS,
-  configs,
+export const saveSettings = (settings) => ({
+  type: SAVE_SETTINGS,
+  settings,
 });
 
 // Thunk Functions
@@ -63,9 +63,9 @@ export const getSaveToken = () => async (dispatch) => {
   }
 };
 
-export const getQuestions = (token, configs) => async (dispatch) => {
+export const getQuestions = (token, settings) => async (dispatch) => {
   try {
-    const newReq = await apiQuestionsFetch(token, configs);
+    const newReq = await apiQuestionsFetch(token, settings);
     dispatch(updateQuestions(newReq.results));
     dispatch(updateToken(newReq.newToken));
   } catch (error) {
