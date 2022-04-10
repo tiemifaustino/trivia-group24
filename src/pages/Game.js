@@ -1,6 +1,7 @@
 import md5 from 'crypto-js/md5';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { MdOutlineNavigateNext } from 'react-icons/md';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
@@ -194,6 +195,8 @@ class Game extends Component {
                       onClick={ this.nextClick }
                       className="btn-next"
                     >
+                      <MdOutlineNavigateNext className="btn-next-icon" />
+                      {' '}
                       Next
                     </button>
                   )}

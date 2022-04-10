@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { FaPlay } from 'react-icons/fa';
 import { FiSettings } from 'react-icons/fi';
 import { connect } from 'react-redux';
 import Footer from '../components/Footer';
@@ -95,6 +96,8 @@ class Login extends Component {
             onClick={ this.handleClick }
             disabled={ isBtnDisabled }
           >
+            <FaPlay />
+            {' '}
             Play
           </button>
         </div>

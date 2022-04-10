@@ -72,13 +72,17 @@
 }
 
 .login-block button {
+  align-items: center;
   background-color: rgb(2, 94, 2);
   border: 1px solid rgb(34, 33, 33);
   border-radius: 10px;
   color: whitesmoke;
+  display: flex;
   font-family: Sora , sans-serif;
   font-size: 0.95rem;
   font-weight: 700;
+  gap: 5px;
+  justify-content: center;
   margin-top: 20px;
   padding: 14px 10px;
   width: 40%;
