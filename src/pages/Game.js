@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import Footer from '../components/Footer';
 import Header from '../components/Header';
 import { correctAnswerClass, INITIAL_STATE, randomNumber, sorter } from '../helpers';
 import { getQuestions, updateScore } from '../redux/actions';
@@ -201,7 +200,6 @@ class Game extends Component {
                 </main>
               )
           )}
-        <Footer />
       </>
     );
   }
