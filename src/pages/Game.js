@@ -22,10 +22,9 @@ class Game extends Component {
   }
 
   componentDidUpdate(_prevProps, prevState) {
-    if (prevState.timer === 0) {
+    if (prevState.timer === 1) {
       this.setState({
         isTimerOut: true,
-        timer: 0,
         nextVisible: true,
       });
       clearInterval(this.periodAnswer);
