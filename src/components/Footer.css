@@ -1,0 +1,31 @@
+footer {
+  bottom: 0;
+  color: whitesmoke;
+  display: flex;
+  flex-direction: column;
+  font-size: small;
+  position: absolute;
+  width: 100%;
+}
+
+footer p {
+  font-weight: 700;
+  margin-top: 10px;
+}
+
+.group-links {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+.group-links a {
+  color: whitesmoke;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.group-links a:hover {
+  transform: scale(1.1);
+}
