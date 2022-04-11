@@ -48,6 +48,10 @@ main {
   width: 100%;
 }
 
+.answers button:hover {
+  background-color: rgba(90, 86, 86, 0.842);
+}
+
 .answers button:disabled {
   background-color: rgba(90, 86, 86, 0.842);
   border-radius: 10px;
