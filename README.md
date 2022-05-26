@@ -33,21 +33,35 @@ Group project developed during the Front-end module of [Trybe](https://www.betry
 
 ### Login
 
-![Preview](./images/login.png)
+<img alt="login" width="700" src="./images/login.png" />
 
+
+### Questions
+
+<div>
+<img align="center" alt="multiple question" width="500" alt="login" width="900" src="./images/multiple.png" />
+<img align="center" alt="true or false question" width="500" alt="login" width="900" src="./images/true-or-false.png" />
+</div>
+
+### Ranking and Categories
+
+<div>
+<img align="center" alt="ranking" width="500" alt="login" width="500" src="./images/ranking.png" />
+<img align="center" alt="categories" width="500" alt="login" width="500" src="./images/category.png" />
+</div>
 
 ## 💻 Run Locally
 
 Clone the project
 
 ```bash
-  git clone https://link-para-o-projeto
+  git clone git@github.com:tiemifaustino/trivia-group24.git
 ```
 
 Go to the project directory
 
 ```bash
-  cd my-project
+  cd trivia-group24
 ```
 
 Install dependencies
