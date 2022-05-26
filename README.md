@@ -28,6 +28,10 @@ Group project developed during the Front-end module of [Trybe](https://www.betry
 - **SCRUM**
 - **Kanban**
 
+## 🎉 Application
+
+Check it out [here](https://trivia-group24.vercel.app/) our project in your browser
+
 
 ## 📹 Demo
 
