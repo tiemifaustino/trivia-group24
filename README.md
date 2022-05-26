@@ -33,7 +33,7 @@ Group project developed during the Front-end module of [Trybe](https://www.betry
 
 ### Login
 
-![Preview](.src/images.login.png)
+![Preview](./images/login.png)
 
 
 ## 💻 Run Locally
